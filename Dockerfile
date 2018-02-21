@@ -26,6 +26,8 @@ COPY tools /home/runner/tools
 
 WORKDIR /home/runner/app
 
+RUN chown -R runner /home/runner/app
+
 RUN npm install
 
 RUN npm install -g grunt-cli

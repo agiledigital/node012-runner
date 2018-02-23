@@ -37,6 +37,11 @@ EXPOSE 8000
 
 RUN chmod +x /home/runner/app/run.sh
 RUN chmod +x /home/runner/tools/generate_config_json.sh
+RUN chgrp -Rf root /home/runner && chmod -Rf g+w /home/runner
+
+# We need to support Openshift's random userid's
+# Ensure we are in the the passwd file 
+RUN chmod g+w /etc/passwd
 
 USER runner
 

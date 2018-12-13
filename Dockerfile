@@ -21,6 +21,11 @@ RUN apk add --update bash openjdk7-jre curl
 # Install envplate for stamping out the conf files at run time.
 RUN curl -sLo /usr/local/bin/ep https://github.com/kreuzwerker/envplate/releases/download/v0.0.8/ep-linux && chmod +x /usr/local/bin/ep
 
+# AWS cli
+RUN apk add python py-pip \
+    && pip --no-cache-dir install --upgrade pip setuptools \
+    && pip --no-cache-dir install awscli
+
 COPY app /home/runner/app
 COPY tools /home/runner/tools
 
@@ -35,6 +40,7 @@ RUN npm install -g grunt-cli
 # Must match the port in server.js
 EXPOSE 8000
 
+RUN chmod +x /home/runner/app/prepare.sh
 RUN chmod +x /home/runner/app/run.sh
 RUN chmod +x /home/runner/tools/generate_config_json.sh
 
